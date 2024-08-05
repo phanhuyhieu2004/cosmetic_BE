@@ -22,7 +22,7 @@ public class ProductController {
     private IProductRepository iProductRepository;
     @GetMapping("")
     public ResponseEntity<Iterable<Products>> getProducts(){
-        Iterable<Products> products=iProductRepository.listProducts();
+        Iterable<Products> products=productService.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
     @GetMapping("/{subcategoriesId}")
