@@ -12,4 +12,7 @@ import java.util.List;
 public interface IProductRepository extends JpaRepository<Products,Long> {
     @Query(value = "SELECT * FROM products WHERE subcategory_id=?",nativeQuery = true)
     List<Products> findProductsBySubcategories(Long subcategoriesId );
+@Query(value = "SELECT * FROM products ORDER BY id DESC LIMIT 18",nativeQuery = true)
+List<Products> listProducts( );
+
 }
