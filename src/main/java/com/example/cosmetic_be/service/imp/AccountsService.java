@@ -6,6 +6,7 @@ import com.example.cosmetic_be.service.IAccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class AccountsService implements IAccountsService {
     @Autowired
     private IAccountsRepository iAccountsRepository;
+
     @Override
     public Iterable<Accounts> findAll() {
         return null;
@@ -33,4 +35,28 @@ public class AccountsService implements IAccountsService {
 
     }
 
+    public Accounts register(String name, String pass) {
+        if (iAccountsRepository.findByName(name) != null) {
+            throw new RuntimeException("Tài khoản đã tồn tại");
+        }
+
+        Accounts accounts = new Accounts();
+        accounts.setName(name);
+        accounts.setPass(pass);
+        accounts.setCreatedAt(LocalDateTime.now());
+        accounts.setUpdatedAt(LocalDateTime.now());
+
+        accounts.setRole(1);
+        return iAccountsRepository.save(accounts);
+    }
+
+    public Accounts login(String name, String pass) {
+
+        Accounts accounts = iAccountsRepository.findByName(name);
+        if (accounts == null) {
+            throw new RuntimeException("Không có tài khoản");
+        }
+        accounts.getPass().equals(pass);
+        return accounts;
+    }
 }

@@ -8,27 +8,26 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "accounts")
-public class Accounts {
+@Table(name = "cart")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String pass;
-    private int role;
+    @OneToOne
+    @JoinColumn(name = "account_id", nullable = false, unique = true)
+    private Accounts accounts;
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     @LastModifiedDate
     private LocalDateTime updatedAt;
-    public Accounts() {
+
+    public Cart() {
     }
 
-    public Accounts(Long id, String name, String pass, int role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Cart(Long id, Accounts accounts, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.name = name;
-        this.pass = pass;
-        this.role = role;
+        this.accounts = accounts;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
