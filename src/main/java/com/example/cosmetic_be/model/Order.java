@@ -35,13 +35,12 @@ public class Order {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
+
 
     public Order() {
     }
 
-    public Order(Long id, Accounts account, BigDecimal totalPrice, String paymentStatus, String shippingStatus, LocalDateTime createdAt, LocalDateTime updatedAt, List<OrderItem> orderItems) {
+    public Order(Long id, Accounts account, BigDecimal totalPrice, String paymentStatus, String shippingStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.account = account;
         this.totalPrice = totalPrice;
@@ -49,6 +48,5 @@ public class Order {
         this.shippingStatus = shippingStatus;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.orderItems = orderItems;
     }
 }

@@ -6,18 +6,18 @@ import java.math.BigDecimal;
 
 @Data
 public class OrderItemDTO {
-    private Long productId;
-    private Long variantId;
+    private Long id;
+    private ProductDTO product;
+    private VariantDTO variant;
     private int quantity;
-    private BigDecimal price;
 
     public OrderItemDTO() {
     }
 
-    public OrderItemDTO(Long productId, Long variantId, int quantity, BigDecimal price) {
-        this.productId = productId;
-        this.variantId = variantId;
+    public OrderItemDTO(Long id, ProductDTO product, VariantDTO variant, int quantity) {
+        this.id = id;
+        this.product = product;
+        this.variant = variant;
         this.quantity = quantity;
-        this.price = price;
     }
 }

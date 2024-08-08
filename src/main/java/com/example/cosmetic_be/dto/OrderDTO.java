@@ -13,4 +13,9 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
+    public OrderDTO(Long accountId, BigDecimal totalPrice, List<OrderItemDTO> items) {
+        this.accountId = accountId;
+        this.totalPrice = totalPrice;
+        this.items = items;
+    }
 }
