@@ -33,33 +33,4 @@ public class CategoriesController {
     }
 
 
-    @PostMapping("")
-    public ResponseEntity<Categories> createCategory(@RequestBody Categories category) {
-        Categories createdCategory = categoriesService.save(category);
-        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
-    }
-
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Categories> updateCategory(@PathVariable Long id, @RequestBody Categories categories) {
-        Optional<Categories> existingCategory = categoriesService.findById(id);
-        if (existingCategory.isPresent()) {
-            categories.setId(id);
-            Categories updatedCategory = categoriesService.save(categories);
-            return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
-        Optional<Categories> existingCategory = categoriesService.findById(id);
-        if (existingCategory.isPresent()) {
-            categoriesService.remove(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 }

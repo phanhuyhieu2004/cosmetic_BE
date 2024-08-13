@@ -35,6 +35,7 @@ public class AccountsService implements IAccountsService {
 
     }
 
+//    xử lý nghiệp vụ của chức năng đăng ký bằng cách tên ,mật khẩu
     public Accounts register(String name, String pass) {
         if (iAccountsRepository.findByName(name) != null) {
             throw new RuntimeException("Tài khoản đã tồn tại");
@@ -49,14 +50,19 @@ public class AccountsService implements IAccountsService {
         accounts.setRole(1);
         return iAccountsRepository.save(accounts);
     }
-
+//Xử lý chức năng đăng nhập bằng cách tìm tài khoản dựa vào tên,sau đó thì so sánh mật khau
     public Accounts login(String name, String pass) {
 
         Accounts accounts = iAccountsRepository.findByName(name);
         if (accounts == null) {
             throw new RuntimeException("Không có tài khoản");
         }
+        if (!accounts.getPass().equals(pass)) {
+            throw new RuntimeException("Sai mat khau");
+        }
         accounts.getPass().equals(pass);
         return accounts;
     }
+
+
 }

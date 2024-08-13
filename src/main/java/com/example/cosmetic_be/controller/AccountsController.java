@@ -22,9 +22,10 @@ public class AccountsController {
     public ResponseEntity<?> register(@RequestBody AccountDTO accountDTO) {
         try {
             Accounts accounts = accountsService.register(accountDTO.getName(), accountDTO.getPass());
-            return new ResponseEntity<>(accounts, HttpStatus.OK);
+            return ResponseEntity.ok(accounts);
         } catch (RuntimeException e) {
             String errorMessage = e.getMessage();
+//            kiểm tra thông báo lỗi xem có chứa chuỗi ... ?
             if (errorMessage.contains("Tài khoản đã tồn tại")) {
                 return ResponseEntity.badRequest().body(new ErrorMessage("Tài khoản đã tồn taị"));
             } else {
@@ -42,9 +43,11 @@ public class AccountsController {
         } catch (RuntimeException e) {
             String errorMessage = e.getMessage();
             if (errorMessage.contains("Không có tài khoản")) {
-                return ResponseEntity.badRequest().body(new ErrorMessage("Không có tài khoản"));
-            } else {
-                return ResponseEntity.badRequest().body(new ErrorMessage("Lỗi không xác định"));
+                return new ResponseEntity<>(new ErrorMessage("Không có tài khoản"),HttpStatus.BAD_REQUEST);
+            }  if (errorMessage.contains("Sai mat khau")) {
+                return new ResponseEntity<>(new ErrorMessage("Sai mật khẩu"), HttpStatus.BAD_REQUEST);
+            }else {
+                return new ResponseEntity<>(new ErrorMessage("Lỗi không xác đinh"),HttpStatus.BAD_REQUEST);
 
             }
 
