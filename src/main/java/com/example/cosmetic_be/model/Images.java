@@ -14,8 +14,7 @@ public class Images {
     private Long id;
 
     private String name;
-
-
+//1 sp có nhiều ảnh nhưng moi ảnh chỉ thuộc về 1 sp duy nhất
 
     @ManyToOne
     @JoinColumn(name="product_id",nullable = false)

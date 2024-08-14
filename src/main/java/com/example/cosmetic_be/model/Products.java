@@ -12,7 +12,7 @@ public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+//1 danh mục con thì có nhiều sp nhưng 1 sp thì chỉ có 1 danh mục con,cha
     @ManyToOne
     @JoinColumn(name = "subcategory_id", nullable = false)
     private  Subcategories subcategories;

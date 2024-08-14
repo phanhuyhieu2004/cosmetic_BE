@@ -60,7 +60,6 @@ public class AccountsService implements IAccountsService {
         if (!accounts.getPass().equals(pass)) {
             throw new RuntimeException("Sai mat khau");
         }
-        accounts.getPass().equals(pass);
         return accounts;
     }
 
