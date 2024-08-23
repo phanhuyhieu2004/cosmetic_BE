@@ -25,8 +25,10 @@ public class CartService {
     private IProductVariantsRepository iProductVariantsRepository; // Thêm repository cho ProductVariants
 
     public Cart createCart(Long accountId) {
+//        tìm giỏ hàng bằng id người dùng
         Cart cart = iCartRepository.findByAccountsId(accountId);
         if (cart == null) {
+//            tìm tài khoản dựa vào id
             Optional<Accounts> accounts = iAccountsRepository.findById(accountId);
             Accounts accounts1 = accounts.orElseThrow(() -> new RuntimeException("Không tìm thấy tài khoản"));
             cart = new Cart();
@@ -72,6 +74,7 @@ public class CartService {
         // Lưu mục giỏ hàng vào cơ sở dữ liệu
         iCartItemRepository.save(cartItem);
     }
+//    Nếu có bất kỳ lỗi nào xảy ra trong quá trình thực hiện các thao tác này, toàn bộ các thao tác phải được hoàn tác (rollback) để đảm bảo tính nhất quán của dữ liệu.
     @Transactional
     public void updateQuantity(Long itemId, int newQuantity) {
         CartItems cartItem = iCartItemRepository.findById(itemId)

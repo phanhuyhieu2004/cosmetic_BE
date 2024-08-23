@@ -23,13 +23,13 @@ public class OrderController {
 @Autowired
 private IOrderRepository iOrderRepository;
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createOrder(@RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<?> createOrder(@RequestBody OrderDTO orderDTO) {
         try {
             // Gọi dịch vụ để tạo đơn hàng
             orderService.createOrder(orderDTO);
-            return ResponseEntity.ok(Map.of("success", true));
+            return ResponseEntity.ok("success");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(Map.of("success", false, "message", e.getMessage()));
+            return ResponseEntity.status(500).body(e.getMessage());
         }
     }
 @GetMapping("")

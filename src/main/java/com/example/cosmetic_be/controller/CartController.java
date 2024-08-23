@@ -33,7 +33,7 @@ public class CartController {
     public ResponseEntity<String> addProductToCart(
             @RequestParam Long accountId,
             @RequestParam Long productId,
-            @RequestParam(required = false) Long variantId, // Variant ID is optional
+            @RequestParam(required = false) Long variantId,
             @RequestParam int quantity) {
         try {
             cartService.addProductToCart(accountId, productId, variantId, quantity);
@@ -42,7 +42,7 @@ public class CartController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Có lỗi xảy ra: " + e.getMessage());
         }
     }
-
+//trả về id của giỏ hàng của tài khoản truyền vào
     @GetMapping("/cartId")
     public ResponseEntity<Long> getCartId(@RequestParam Long accountId) {
         Cart cart = iCartRepository.findByAccountsId(accountId);
@@ -51,7 +51,7 @@ public class CartController {
         }
         return ResponseEntity.notFound().build();
     }
-
+//lấy ra các mục giỏ hàng từ id giỏ hàng
     @GetMapping("/cartItems")
     public ResponseEntity<List<CartItems>> getCartItems(@RequestParam Long cartId) {
         List<CartItems> cartItems = iCartItemRepository.findByCartId(cartId);

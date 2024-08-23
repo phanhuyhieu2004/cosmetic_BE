@@ -17,7 +17,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+//1 đơn chỉ có 1 tài khoản nhưng 1 tài khoản có nhiều đơn
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false)
     private Accounts account;

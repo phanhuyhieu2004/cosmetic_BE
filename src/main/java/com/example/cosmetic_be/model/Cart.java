@@ -13,6 +13,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+//    1 người dùng có 1 giỏ hàng
     @OneToOne
     @JoinColumn(name = "account_id", nullable = false, unique = true)
     private Accounts accounts;

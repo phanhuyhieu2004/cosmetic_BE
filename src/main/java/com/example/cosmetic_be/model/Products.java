@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
 @Entity
@@ -22,7 +23,7 @@ public class Products {
     @Column(columnDefinition = "longtext")
     private String description;
 
-    private int price;
+    private BigDecimal price;
     private String brand;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -36,7 +37,7 @@ private int quantity;
 
     }
 
-    public Products(Long id, Subcategories subcategories, String name, String description, int price, String brand, LocalDateTime createdAt, LocalDateTime updatedAt, int quantity) {
+    public Products(Long id, Subcategories subcategories, String name, String description, BigDecimal price, String brand, LocalDateTime createdAt, LocalDateTime updatedAt, int quantity) {
         this.id = id;
         this.subcategories = subcategories;
         this.name = name;

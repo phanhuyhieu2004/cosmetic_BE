@@ -1,5 +1,6 @@
 package com.example.cosmetic_be.controller;
 
+import com.example.cosmetic_be.dto.ProductDTO;
 import com.example.cosmetic_be.model.Products;
 import com.example.cosmetic_be.model.Subcategories;
 import com.example.cosmetic_be.repository.IProductRepository;
@@ -36,5 +37,16 @@ public class ProductController {
         Optional<Products> products=iProductRepository.findById(id);
         return new ResponseEntity<>(products.get(),HttpStatus.OK);
 
+    }
+    @GetMapping("/product/search")
+    public ResponseEntity<?>getProductsByName(@RequestParam String name){
+        Iterable<Products> products=iProductRepository.findProductsByTitle(name);
+        return new ResponseEntity<>(products,HttpStatus.OK);
+
+    }
+    @PostMapping
+    public ResponseEntity<Products> createProduct(@RequestBody ProductDTO productDTO) {
+        Products createdProduct = productService.createProduct(productDTO);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 }

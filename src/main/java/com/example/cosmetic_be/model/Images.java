@@ -12,6 +12,7 @@ public class Images {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+    @Column(columnDefinition = "longtext")
 
     private String name;
 //1 sp có nhiều ảnh nhưng moi ảnh chỉ thuộc về 1 sp duy nhất

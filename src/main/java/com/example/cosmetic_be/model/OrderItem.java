@@ -13,15 +13,15 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+//Mỗi mục hàng thuoc về 1 đơn hàng ,1 đơn hàng chứa nhiều mục hàng
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
-
+//1 mục hàng chỉ có 1 sp nhưng 1 sp xuất hiện ở nhiều mục hàng
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Products product;
-
+//1 mục hàng có 1 biến thể nhưng 1 biến thể xuất hiện trong nhều mục hàng
     @ManyToOne
     @JoinColumn(name = "variant_id")
     private ProductVariants variant;
