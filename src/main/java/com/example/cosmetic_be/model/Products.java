@@ -29,6 +29,7 @@ public class Products {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
+//    là một annotation trong Spring Data JPA được sử dụng để tự động ghi lại thời gian mà một entity (bản ghi) được cập nhật lần cuối trong cơ sở dữ liệu.
     @LastModifiedDate
     private LocalDateTime updatedAt;
 private int quantity;

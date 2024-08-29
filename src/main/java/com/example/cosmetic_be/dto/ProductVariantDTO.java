@@ -6,5 +6,11 @@ import lombok.Data;
 @Data
 public class ProductVariantDTO {
     private String name;
-    private Products products;
+
+    public ProductVariantDTO() {
+    }
+
+    public ProductVariantDTO(String name) {
+        this.name = name;
+    }
 }

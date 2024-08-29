@@ -15,4 +15,6 @@ public interface IProductRepository extends JpaRepository<Products,Long> {
     List<Products> findProductsBySubcategories(Long subcategoriesId );
     @Query(value = "SELECT * FROM products WHERE name LIKE %:name%",nativeQuery = true)
     public Iterable<Products> findProductsByTitle(@RequestParam String name);
+    @Query(value = "SELECT * FROM products ORDER BY created_at DESC",nativeQuery = true)
+    public Iterable<Products> findAllByCreatedAt();
 }

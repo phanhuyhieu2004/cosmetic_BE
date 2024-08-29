@@ -23,7 +23,7 @@ public class ProductController {
     private IProductRepository iProductRepository;
     @GetMapping("")
     public ResponseEntity<Iterable<Products>> getProducts(){
-        Iterable<Products> products=productService.findAll();
+        Iterable<Products> products=iProductRepository.findAllByCreatedAt();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
     @GetMapping("/{subcategoriesId}")
@@ -48,5 +48,22 @@ public class ProductController {
     public ResponseEntity<Products> createProduct(@RequestBody ProductDTO productDTO) {
         Products createdProduct = productService.createProduct(productDTO);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Products> updateProduct(
+            @PathVariable Long id,
+            @RequestBody ProductDTO productDTO) {
+        Products createdProduct = productService.updateProduct(id,productDTO);
+        return new ResponseEntity<>(createdProduct, HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Products> deleteProduct(
+            @PathVariable Long id) {
+        Optional<Products> createdProduct = iProductRepository.findById(id);
+        if(!createdProduct.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        iProductRepository.deleteById(createdProduct.get().getId());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

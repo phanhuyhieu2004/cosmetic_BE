@@ -16,7 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductService implements IProductService {
     @Autowired
@@ -76,5 +81,46 @@ iProductRepository.deleteById(id);
         }
 
         return savedProduct;
+    }
+    public Products updateProduct(Long id, ProductDTO productDTO) {
+        Products updatedProduct = iProductRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm được sản phẩm"));
+
+        updatedProduct.setName(productDTO.getName());
+        updatedProduct.setBrand(productDTO.getBrand());
+        updatedProduct.setUpdatedAt(LocalDateTime.now());
+        updatedProduct.setDescription(productDTO.getDescription());
+        updatedProduct.setPrice(productDTO.getPrice());
+        updatedProduct.setQuantity(productDTO.getQuantity());
+        Subcategories subcategory = iSubcategoriesRepository.findById(productDTO.getSubcategoryId())
+                .orElseThrow(() -> new RuntimeException("Danh mục con không tìm thấy"));
+        updatedProduct.setSubcategories(subcategory);
+        iProductRepository.save(updatedProduct);
+//tìm ảnh dựa vào id cuủa sp
+        List<Images> existingImages = (List<Images>) iImageRepository.getImagesByProductId(id);
+        Map<Long, Images> existingImageMap = new HashMap<>();
+        for (Images img : existingImages) {
+            existingImageMap.put(img.getId(), img);
+        }
+
+
+        for (ImageDTO imageDTO : productDTO.getImages()) {
+            Long imageId = imageDTO.getId();
+            String newName = imageDTO.getName();
+
+            if (imageId != null) {
+                Images existingImage = existingImageMap.get(imageId);
+                if (existingImage != null) {
+                    existingImage.setName(newName);
+                    iImageRepository.save(existingImage);
+                } else {
+                    System.out.println("Không tìm thấy ảnh với ID: " + imageId);
+                }
+            } else {
+                System.out.println("Không có id");
+            }
+        }
+
+        return updatedProduct;
     }
 }

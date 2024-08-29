@@ -45,7 +45,6 @@ public class AccountsService implements IAccountsService {
         accounts.setName(name);
         accounts.setPass(pass);
         accounts.setCreatedAt(LocalDateTime.now());
-        accounts.setUpdatedAt(LocalDateTime.now());
 
         accounts.setRole(1);
         return iAccountsRepository.save(accounts);

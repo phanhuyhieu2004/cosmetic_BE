@@ -18,5 +18,8 @@ public class OrderItemsController {
         Iterable<OrderItem> orderItems=iOrderItemRepository.findByOrderId(orderId);
         return new ResponseEntity<>(orderItems, HttpStatus.OK);
     }
-
+    @GetMapping("/total-sold")
+    public Integer getTotalQuantitySold() {
+        return iOrderItemRepository.findTotalQuantitySold();
+    }
 }

@@ -5,12 +5,13 @@ import lombok.Data;
 
 @Data
 public class ImageDTO {
+    private Long id; // Thêm trường ID
     private String name;
     public ImageDTO() {
     }
 
-    public ImageDTO(String name) {
+    public ImageDTO(Long id, String name) {
+        this.id = id;
         this.name = name;
-
     }
 }

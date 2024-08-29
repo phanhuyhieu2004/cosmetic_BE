@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +42,7 @@ public class OrderService {
         order.setAccount(account);
         order.setTotalPrice(orderDTO.getTotalPrice());
         order.setCreatedAt(LocalDateTime.now());
-        order.setUpdatedAt(LocalDateTime.now());
+
         order.setPaymentStatus("Đang xử lý");
         order.setShippingStatus("Đang xử lý");
 
@@ -80,5 +82,26 @@ public class OrderService {
         }
         iOrderItemRepository.saveAll(orderItems);
     }
+    public BigDecimal getRevenueByDate(LocalDate date) {
+        return iOrderRepository.calculateRevenueByDate(date);
+    }
 
+    public BigDecimal getRevenueByMonth(int month, int year) {
+        return iOrderRepository.calculateRevenueByMonth(month, year);
+    }
+
+    public BigDecimal getRevenueByYear(int year) {
+        return iOrderRepository.calculateRevenueByYear(year);
+    }
+    public Order updateOrderStatus(Long orderId,String paymentStatus,String shippingStatus) {
+        Order order = iOrderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn"));
+        order.setPaymentStatus(paymentStatus);
+        order.setShippingStatus(shippingStatus);
+        order.setUpdatedAt(LocalDateTime.now());
+        return iOrderRepository.save(order);
+    }
+    public Object[] getCountOrdersBySpecificStatuses() {
+        return iOrderRepository.countOrdersBySpecificStatuses();
+    }
 }
