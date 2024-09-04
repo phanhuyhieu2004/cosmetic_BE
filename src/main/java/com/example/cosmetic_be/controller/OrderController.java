@@ -43,7 +43,6 @@ private IOrderRepository iOrderRepository;
 
     @GetMapping("/daily")
     public ResponseEntity<?> getDailyRevenue(@RequestParam String date) {
-        // Convert date string to LocalDate
         LocalDate localDate = LocalDate.parse(date);
         BigDecimal revenue = orderService.getRevenueByDate(localDate);
         return ResponseEntity.ok(Collections.singletonMap("totalRevenue", revenue));

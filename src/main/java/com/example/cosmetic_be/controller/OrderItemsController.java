@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/orders/items")
@@ -21,5 +23,10 @@ public class OrderItemsController {
     @GetMapping("/total-sold")
     public Integer getTotalQuantitySold() {
         return iOrderItemRepository.findTotalQuantitySold();
+    }
+    @GetMapping("/top-selling-products")
+    public ResponseEntity<List<Object[]>> getTopSellingProducts() {
+        List<Object[]> topSellingProducts = iOrderItemRepository.findTopSellingProducts();
+        return ResponseEntity.ok(topSellingProducts);
     }
 }
