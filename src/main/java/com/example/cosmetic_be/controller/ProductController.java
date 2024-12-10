@@ -7,6 +7,7 @@ import com.example.cosmetic_be.repository.IProductRepository;
 import com.example.cosmetic_be.service.imp.ProductService;
 import com.example.cosmetic_be.service.imp.SubcategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,8 +47,11 @@ public class ProductController {
     }
     @PostMapping
     public ResponseEntity<Products> createProduct(@RequestBody ProductDTO productDTO) {
-        Products createdProduct = productService.createProduct(productDTO);
+     try{   Products createdProduct = productService.createProduct(productDTO);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    } catch (DuplicateKeyException e) {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
     }
     @PutMapping("/{id}")
     public ResponseEntity<Products> updateProduct(

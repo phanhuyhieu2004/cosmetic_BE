@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface IOrderItemRepository  extends JpaRepository<OrderItem, Long> {
     List<OrderItem> findByOrderId(Long orderId);
-    @Query(value = "SELECT SUM(oi.quantity) FROM order_items  oi",nativeQuery = true)
+    @Query(value = "SELECT SUM(oi.quantity)\n" +
+            "FROM order_items oi\n" +
+            "JOIN orders o ON oi.order_id = o.id\n" +
+            "WHERE o.payment_status = 'Hoàn thành';",nativeQuery = true)
     Integer findTotalQuantitySold();
     @Query("SELECT oi.product.id, oi.product.name, SUM(oi.quantity) AS totalSold " +
             "FROM OrderItem oi " +

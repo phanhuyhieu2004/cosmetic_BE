@@ -19,7 +19,7 @@ Accounts findByName(String name);
     BigDecimal countAccountsByDate(@Param("date") LocalDate date);
 
     // Đếm số lượng người dùng theo tháng cụ thể
-    @Query("SELECT COUNT(a) FROM Accounts a  WHERE DATE(a.createdAt) = :month AND YEAR(a.createdAt) = :year  AND a.role=1")
+    @Query("SELECT COUNT(a) FROM Accounts a  WHERE MONTH(a.createdAt) = :month AND YEAR(a.createdAt) = :year  AND a.role=1")
     BigDecimal countAccountsByMonth(@Param("month") int month, @Param("year") int year);
 
     // Đếm số lượng người dùng theo năm cụ thể

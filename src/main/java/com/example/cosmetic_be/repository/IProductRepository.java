@@ -17,4 +17,5 @@ public interface IProductRepository extends JpaRepository<Products,Long> {
     public Iterable<Products> findProductsByTitle(@RequestParam String name);
     @Query(value = "SELECT * FROM products ORDER BY created_at DESC",nativeQuery = true)
     public Iterable<Products> findAllByCreatedAt();
+    boolean existsByName(String name);
 }

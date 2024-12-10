@@ -66,11 +66,13 @@ public class AccountsController {
 
         BigDecimal count = iAccountsRepository.countAccountsByDate(localDate);
         return ResponseEntity.ok(Collections.singletonMap("count", count));
-    }  @GetMapping("/monthly")
+    }
+    @GetMapping("/monthly")
     public ResponseEntity<?> getMonthlyAccount(@RequestParam int month, @RequestParam int year) {
         BigDecimal count = iAccountsRepository.countAccountsByMonth(month, year);
         return ResponseEntity.ok(Collections.singletonMap("count", count));
     }
+
 
     @GetMapping("/yearly")
     public ResponseEntity<?> getYearlyAccount(@RequestParam int year) {

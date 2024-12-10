@@ -13,6 +13,7 @@ import com.example.cosmetic_be.repository.IProductVariantsRepository;
 import com.example.cosmetic_be.repository.ISubcategoriesRepository;
 import com.example.cosmetic_be.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -55,6 +56,9 @@ iProductRepository.deleteById(id);
     }
 
     public Products createProduct(ProductDTO productDTO) {
+        if (iProductRepository.existsByName(productDTO.getName())) {
+            throw new DuplicateKeyException("Tên đã tồn tại.");
+        }
         Subcategories subcategory = iSubcategoriesRepository.findById(productDTO.getSubcategoryId())
                 .orElseThrow(() -> new RuntimeException("Danh mục con k tìm thấy"));
 
